@@ -1,0 +1,52 @@
+<project name="SdkApi_Java_War" default="dist" basedir=".">
+	<description>
+        Zebra Web Service Tomcat WAR
+    </description>
+
+	<!-- set global properties for this build -->
+	<property name="webcontent.dir" location="WebContent" />
+	<property name="lib.dir" location="lib" />
+	<property name="dist.dir" location="dist" />
+	<property name="src.dir" location="src" />
+	<property name="build.dir" location="ant_bin" />
+	<property name="sdk.desktop.jar.dir" location="../SdkApi_Java_Desktop/dist/" />
+
+	<path id="build.classpath">
+		<fileset dir="${lib.dir}" includes="*.jar" />
+		<fileset dir="${sdk.desktop.jar.dir}" includes="ZSDK_API.jar" />
+	</path>
+
+	<target name="init">
+		<mkdir dir="${build.dir}/classes" />
+		<mkdir dir="${dist.dir}" />
+		<mkdir dir="${webcontent.dir}/WEB-INF/lib" />
+	</target>
+
+	<target name="dist" depends="clean, compile">
+		<copy todir="${webcontent.dir}/WEB-INF/lib">
+			<fileset dir="${sdk.desktop.jar.dir}" includes="ZSDK_API.jar" />
+			<fileset dir="${lib.dir}" includes="*.jar" excludes="*tomcat*.jar" />
+		</copy>
+
+		<war destfile="${dist.dir}/ZebraWebServicesDeveloperDemo.war" webxml="${webcontent.dir}/WEB-INF/web.xml" update="true">
+			<classes dir="${build.dir}/classes" />
+			<fileset dir="${webcontent.dir}" excludes="/WEB-INF/web.xml" />
+		</war>
+
+	</target>
+
+	<target name="compile" depends="init">
+
+		<javac source="1.6" srcdir="${src.dir}" destdir="${build.dir}/classes">
+			<classpath refid="build.classpath" />
+		</javac>
+
+	</target>
+
+	<target name="clean">
+		<delete dir="${dist.dir}" />
+		<delete dir="${webcontent.dir}/WEB-INF/lib" />
+		<delete dir="${build.dir}" />
+	</target>
+
+</project>

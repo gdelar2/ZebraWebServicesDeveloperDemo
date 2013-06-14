@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="ZebraWebServicesDeveloperDemo">
+        <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <dependent-module archiveName="zsdk_core.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/SdkApi_Java_Core/SdkApi_Java_Core">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="zsdk.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/SdkApi_Java_Desktop/SdkApi_Java_Desktop">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <property name="java-output-path" value="/ZebraWebServicesDeveloperDemo/build/classes"/>
+        <property name="context-root" value="ZebraWebServicesDeveloperDemo"/>
+    </wb-module>
+</project-modules>
