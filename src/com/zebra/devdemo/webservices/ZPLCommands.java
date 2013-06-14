@@ -9,49 +9,39 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.zebra.sdk.comm.ConnectionException;
-import com.zebra.sdk.printer.ZebraPrinter;
-import com.zebra.sdk.printer.ZebraPrinterFactory;
-import com.zebra.sdk.printer.ZebraPrinterLanguageUnknownException;
 import com.zebra.sdk.remote.comm.RemoteConnection;
 
-
 /**
- * Servlet implementation class PrintConfig
+ * Servlet implementation class ZPLCommands
  */
+@SuppressWarnings("serial")
 @WebServlet("/WebServicesDevDemo/ZPLCommands")
 public class ZPLCommands extends HttpServlet {
-
-	private static final long serialVersionUID = -5602313335397756250L;
+	
 	/**
-	 * Custom POST implementation which takes in a SerialNumber as the parameter.
-	 * A <code>ZebraPrinter</code> object is created and used to print a config label
-	 * to the printer.
+	 * Custom POST implementation which takes in a SerialNumber and sends ZPL commands via a remote connection.
 	 * 
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			//Get the serial number off the request.
+			// Get the serial number off the request.
 			String serialNumber = request.getParameter("SerialNumber");
-			//Create a RemoteConnection on port 11995
+			// Create a RemoteConnection on port 11995
 			RemoteConnection connection = new RemoteConnection(serialNumber, 11995);
+			// Open the connection
 			connection.open();
-			
-			//connection.write("~WC".getBytes());
-			String zplCommands ="23";
-			zplCommands =request.getParameter("inCommand");
+			// Get the ZPL commands from the inCommand parameter
+			String zplCommands = request.getParameter("inCommand");
+			// Send the ZPL commands
 			connection.write(zplCommands.getBytes());
-			//connection.write(("^XA^FO100,100^FDTEEEESSSSTTT"+zplCommands+"^FS^XZ").getBytes());
+			
 			//getServletContext().getRequestDispatcher("/WEB-INF/devdemo.jsp").forward(request, response);
+			// Redirect the webpage back to the app's home
 			response.sendRedirect("/ZebraWebServicesDeveloperDemo/WebServicesDevDemo");
+			
 		} catch (ConnectionException e) {
 			System.err.println(e.getLocalizedMessage());
 		} 
 	}
-	
-	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-		doPost(request, response);
-	}
-	
 }

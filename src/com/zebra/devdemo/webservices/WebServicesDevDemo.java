@@ -18,10 +18,9 @@ import com.zebra.sdk.remote.discovery.RemoteDiscoverer;
 /**
  * Servlet implementation class WebServicesDevDemo
  */
+@SuppressWarnings("serial")
 @WebServlet(urlPatterns = { "/WebServicesDevDemo" }, loadOnStartup = 1)
 public class WebServicesDevDemo extends HttpServlet {
-
-	private static final long serialVersionUID = 4259174667963602122L;
 
 	/**
 	 * Custom GET implementation which will retrieve a <code>Set</code> of connected printers and return the JSP.

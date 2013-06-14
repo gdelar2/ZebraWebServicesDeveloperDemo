@@ -33,15 +33,15 @@ public class SlimDiscoPrinter {
 		ZebraPrinter printerTest = ZebraPrinterFactory.getInstance(connection);
 		PrinterStatus printerStatus = printerTest.getCurrentStatus();
 		if (printerStatus.isReadyToPrint)
-            this.setStatus("Ready to Print");
+            this.setStatus("Ready to print");
 		else if (printerStatus.isPaused) 
-			this.setStatus("Cannot Print because the printer is paused.");
+			this.setStatus("Cannot print because the printer is paused");
         else if (printerStatus.isHeadOpen)
-        	this.setStatus("Cannot Print because the printer head is open.");
+        	this.setStatus("Cannot print because the printer head is open");
         else if (printerStatus.isPaperOut)
-        	this.setStatus("Cannot Print because the paper is out.");
+        	this.setStatus("Cannot print because the paper is out");
         else 
-        	this.setStatus("Cannot Print.");
+        	this.setStatus("Cannot print");
         
 	}
 

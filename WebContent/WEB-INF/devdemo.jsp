@@ -129,28 +129,7 @@
 					<input type="hidden" name="SerialNumber" value="${printer.serialNumber}">
     				<input type="file" name="file" accept="image/*">
     				<input type="submit" value="Print Image">
-				</form>
-				
-				<%---- 
-					<form id="imagePrint${printer.serialNumber}" action="upload" enctype="multipart/form-data" method="post">
-									<input type="hidden" name="SerialNumber" value="${printer.serialNumber}">
-									<input type="text" name="description" />
-    								<input type="file" name="file" />
-									<input type="submit" value="print" />
-								</form>
-								<script type="text/javascript">                                         
-								 $("#imagePrint${printer.serialNumber})").submit(function() {
-										event.preventDefault();
-								
-										var $form = $(this);
-										term = $form.find( 'input[name="SerialNumber"]' ).val(),
-								     	url = $form.attr( 'action' );
-										
-										$.post(url, { SerialNumber : term });
-									});                                 
-								</script> 
-				----%>
-				</td>
+				</form></td>
 			</tr>
 
 		</c:forEach>

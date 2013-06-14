@@ -14,14 +14,13 @@ import com.zebra.sdk.printer.ZebraPrinterFactory;
 import com.zebra.sdk.printer.ZebraPrinterLanguageUnknownException;
 import com.zebra.sdk.remote.comm.RemoteConnection;
 
-
 /**
  * Servlet implementation class PrintConfig
  */
+@SuppressWarnings("serial")
 @WebServlet("/WebServicesDevDemo/PrintConfig")
 public class PrintConfig extends HttpServlet {
 
-	private static final long serialVersionUID = -5602313335397756250L;
 	/**
 	 * Custom POST implementation which takes in a SerialNumber as the parameter.
 	 * A <code>ZebraPrinter</code> object is created and used to print a config label
@@ -31,15 +30,17 @@ public class PrintConfig extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			//Get the serial number off the request.
+			// Get the serial number off the request.
 			String serialNumber = request.getParameter("SerialNumber");
-			//Create a RemoteConnection on port 11995
+			// Create a RemoteConnection on port 11995
 			RemoteConnection connection = new RemoteConnection(serialNumber, 11995);
+			// Open the connection
 			connection.open();
-			
+			// Get the printer instance
 			ZebraPrinter printer = ZebraPrinterFactory.getInstance(connection);
-			//Decorate the printer as a LinkOsPrinter and print the configuration label.
+			// Decorate the printer as a LinkOsPrinter and print the configuration label.
 			ZebraPrinterFactory.createLinkOsPrinter(printer).printConfigurationLabel();
+			
 		} catch (ConnectionException e) {
 			System.err.println(e.getLocalizedMessage());
 		} catch (ZebraPrinterLanguageUnknownException e) {
